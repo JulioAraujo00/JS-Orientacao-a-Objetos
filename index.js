@@ -5,14 +5,19 @@ class Cliente {
 
 class ContaCorrente {
     agencia;
-    saldo;
+    #saldo;
 
     sacar(valor) {
-      if (this.saldo >= valor) {
-        this.saldo -= valor
+      if (this.#saldo >= valor) {
+        this.#saldo -= valor
       } 
     }
-}
+    depositar(valor) {
+      if (valor > 0) {
+        this.#saldo += valor
+      }
+    }
+  }
 
 
 const cliente1 = new Cliente()
@@ -27,11 +32,10 @@ const contaCorrenteRicardo = new ContaCorrente()
 contaCorrenteRicardo.saldo = 0
 contaCorrenteRicardo.agencia = 1001
 
+contaCorrenteRicardo.depositar(100)
+contaCorrenteRicardo.sacar(50)
 
+console.log(contaCorrenteRicardo)
 
-console.log(`O saldo de Ricardo é: ${contaCorrenteRicardo.saldo}`)
-contaCorrenteRicardo.saldo = 300
-contaCorrenteRicardo.sacar(200)
-console.log(`O saldo de Ricardo é: ${contaCorrenteRicardo.saldo}`)
 
 
