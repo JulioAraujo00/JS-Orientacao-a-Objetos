@@ -5,16 +5,18 @@ class Cliente {
 
 class ContaCorrente {
     agencia;
-    #saldo;
-
+    //#saldo = 0; //0 # é utilizado para transformar a variável saldo como privada. Dessa forma, ela ficará invisível nos console.log e não pode ser alterada no decorrer do código DIRETAMENTE!
+      _saldo = 0 //o _ serve para identificar um valor como privado.
+      
     sacar(valor) {
-      if (this.#saldo >= valor) {
-        this.#saldo -= valor
+      if (this._saldo >= valor) {
+        this._saldo -= valor
+        return valor
       } 
     }
     depositar(valor) {
       if (valor > 0) {
-        this.#saldo += valor
+        this._saldo += valor
       }
     }
   }
@@ -29,13 +31,14 @@ cliente2.nome = "Alice"
 cliente2.cpf = 88822233309
 
 const contaCorrenteRicardo = new ContaCorrente()
-contaCorrenteRicardo.saldo = 0
 contaCorrenteRicardo.agencia = 1001
 
-contaCorrenteRicardo.depositar(100)
-contaCorrenteRicardo.sacar(50)
+contaCorrenteRicardo.depositar(300)
+const valorSacado = contaCorrenteRicardo.sacar(150)
+
 
 console.log(contaCorrenteRicardo)
+console.log(valorSacado)
 
 
 
