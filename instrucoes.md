@@ -20,7 +20,7 @@ class Cliente {
     saldo;
 }
 
-Dentro das classes, chamamos suas variáveis internas de campos, propriedades ou atributos (qualquer um dos três pode ser utilizado).
+Dentro das classes, chamamos suas variáveis internas de campos, *propriedades ou atributos* (qualquer um dos três pode ser utilizado).
 
 Para utilizar a classe, utiliza-se o comando *new* e o nome da classe.
 
@@ -86,3 +86,50 @@ Aqui, o campo agencia do objeto foi preenchido com o valor *1001*
 
 Aqui foi atribuído o valor de saque a uma variável para que ele possa ser apresentado posteriormente.
 
+**Early Return**
+
+São verificações prévias para evitar o excesso de utilização de if's. Vamos utiliza-lo no método de depósito,
+
+ depositar(valor) {
+      if (valor <= 0) { *foi inserido para verificar o que não queremos (antes da operação seguinte*
+        return *vai interromper a execução da operação*
+      }
+      this._saldo += valor
+    }
+
+Para minimizar a escrita, podemos utilizar o código da seguinte forma:
+
+    if (valor <=0>) return
+    this.+saldo += valor
+
+Se o if for de somente uma linha, os {} não são necessários para executar o código. 
+
+## Importando módulos
+
+Para evitar códigos muito longos, é recomendada a utilização de *módulos*, que são pequenos arquivos contendo métodos. Dessa forma, além da melhor organização do código, os módulos podem ser reutilizados em diversas outras aplicações.
+
+Em nosso código, vamos criar DOIS módulos para nossos métodos, sendo eles *ContaCorrente.js* e *Cliente.js*.
+
+O código para cada método será enviado para os arquivos e, para ser possível utilizá-los, vamos *exportar* e *importar* esses módulos para o arquivo de execução *(index.js)*
+
+**Exportando o módulo**
+
+export class ContaCorrente {
+  _código_ ...
+}
+
+O código é exportado dessa forma
+
+**Importando o módulo**
+
+No arquivo de execução, em seu início, são importados os módulos.
+
+import {ContaCorrente} from './Cliente.js'
+
+Agora é necessário transformar o *index.js* em um módulo, caso contrário ele não conseguirá executar as importações.
+
+Todo programa que utiliza o NodeJS precisa do arquivo de configuração chamado Json. 
+
+Precisamos referenciar o index.js como módulo dentro desse arquivo!
+
+Primeiro vamos iniciar um pacote node em nosso projeto utilizando o comando *npm init*. Só preencher as informações conforme for solicitado.
