@@ -56,6 +56,11 @@ class contaCorrente {
   agencia;
   _saldo; __o sinal _ serve para 'sinaliazar' que estamos lidando com dados sensíveis e que não podem ser alterados no decorrer do código__ 
 
+## OBS----------------------------------------------------------------------------------------------------------
+**#saldo = 0; //0 # é utilizado para transformar a variável saldo como privada. Dessa forma, ela ficará invisível nos console.log e não pode ser alterada no decorrer do código DIRETAMENTE!**
+ **O _ serve para identificar um valor como privado**
+## OBS----------------------------------------------------------------------------------------------------------
+
 *Método responsável pelo saque*
   sacar(valor) {  __inserimos o termo *valor* no parâmetro.__
       if (this._saldo >= valor) { *se o valor de saldo for maior que o valor sacado, o if será executado*
@@ -133,3 +138,79 @@ Todo programa que utiliza o NodeJS precisa do arquivo de configuração chamado 
 Precisamos referenciar o index.js como módulo dentro desse arquivo!
 
 Primeiro vamos iniciar um pacote node em nosso projeto utilizando o comando *npm init*. Só preencher as informações conforme for solicitado.
+
+Feito isso, vamos até o package.json e adicionar o "type":"module"
+
+"author": "Julio Araujo",
+  "license": "ISC",
+  "type":"module",
+
+  **Composição de classes**
+
+  Agora vamos associar a classe ContaCorrente a algum cliente.
+
+  Para isso, vamos adicionar o atributo *cliente*
+
+  class ContaCorrente {
+  agencia;
+  *cliente;*
+
+    _saldo = 0 ...
+
+  Feito isso, vamos instanciar o atributo cliente dessa forma:
+
+  contaCorrenteRicardo.cliente = cliente1
+
+  Aqui, atribuimos o atributo cliente a classe *Cliente*. Logo, todos os atributos dessa classe serão "anexados" a esse atributo
+
+  Agora vamos criar o método *transferir()*
+
+  transefir(valor,conta) {
+      const valorSacado = this.sacar(valor) *cria a variavel valorSacado e utiliza o método sacar() para retirar o valor*
+      conta.depositar(valorSacado) *usa o método depositar() utilizando como parâmetro o valorSacado*
+  }
+
+  ## Tipo de valor e tipo de referência
+
+  Podemos alterar os atributos dos objetos diretamente de qualquer método. É necessário tomar cuidado para não criar coisas esquisitas!
+
+   transefir(valor,conta) {
+      conta.cidade = "São Paulo"  *o atributo cidade não existia no objeto conta, mas dessa forma criamos essa atributo junto com o restante do método transferir*
+      const valorSacado = this.sacar(valor)
+      conta.depositar(valorSacado)
+  }
+  
+  ## PROTEGENDO INSERÇÃO DE DADOS
+
+
+Para evitar que qualquer valor seja atribuido a alguma propriedade do código, utilizamos o método nativo *set*
+set cliente(novoValor){
+    if(novoValor instanceof Cliente) {
+      this._cliente = novoValor
+    }
+  }
+
+Dessa forma, só será permitida a inserção do valor SE o parâmetro do set *novoValor* for uma instância de Cliente (que nesse caso foi importado automáticamente pelo js.)
+
+Para verificar a instância, foi utilizado o operador *instanceof*.
+
+Também podemos criar um acessor para somente leitura de atributos.
+
+ get saldo() {
+    return this._saldo
+  }
+
+  com o acessor *get*, podemos apresentar um elemento sensível, mas sem a possibilidade de altera-lo
+
+  ## UTILIZANDO CONSTRUTORES
+
+   constructor(nome, cpf) {
+    this.nome = nome
+    this._cpf = cpf
+  }
+
+Utilizando o constructor, eu consigo fazer com que os parâmetros inseridos nele nunca sejam alterados.
+
+Lembrando que esse construtor está inserido no método Cliente.js, então todas vez que ele for utilizado, os parâmetros utilizados devem ser inseridos de acordo com o construtor 
+
+const cliente1 = new Cliente(nome, cpf)
