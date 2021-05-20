@@ -214,3 +214,11 @@ Utilizando o constructor, eu consigo fazer com que os parâmetros inseridos nele
 Lembrando que esse construtor está inserido no método Cliente.js, então todas vez que ele for utilizado, os parâmetros utilizados devem ser inseridos de acordo com o construtor 
 
 const cliente1 = new Cliente(nome, cpf)
+
+## Atributos Estáticos
+
+export class ContaCorrente {
+  static numeroDeContas = 0 *utilizado para manter o contador para todos os métodos, sem utiliza-lo somente para a classe atual!*
+  agencia;
+  _cliente;
+  _saldo = 0...
